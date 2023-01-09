@@ -8,10 +8,10 @@ namespace ProjetIMH
 {
     internal class ConsoleIHM : IConsoleIHM
     {
-        private HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput> client2;
+        private HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput> client;
         public ConsoleIHM()
         {
-            client2 = new HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput>(
+            client = new HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput>(
                 "https://localhost:7093/Customers/",
                 "Create",
                 "Update",
@@ -70,7 +70,7 @@ namespace ProjetIMH
                 LastName = lastName,
             };
 
-            var success = client2.Create(input);
+            var success = client.Create(input);
             if (success)
                 Console.WriteLine("Customer created");
             else
@@ -83,7 +83,7 @@ namespace ProjetIMH
             Console.Clear();
             Console.WriteLine("===Update===");
             var id = GetInt("Please enter the id");
-            var customer = client2.ReadOne(id);
+            var customer = client.ReadOne(id);
             if (customer == null)
             {
                 Console.WriteLine("This customer doesn't existe");
@@ -99,7 +99,7 @@ namespace ProjetIMH
                 FirstName = firstName,
                 LastName = lastName,
             };
-            var response = client2.Update(input);
+            var response = client.Update(input);
             if (response)
             {
                 Console.WriteLine("Customer udpated");
@@ -116,14 +116,14 @@ namespace ProjetIMH
             Console.Clear();
             Console.WriteLine("===Delete by id===");
             var id = GetInt("Please enter the id");
-            var customer = client2.ReadOne(id);
+            var customer = client.ReadOne(id);
             if (customer == null)
             {
                 Console.WriteLine("This customer doesn't existe");
                 PressAKey();
                 return;
             }
-            var response = client2.Delete(id);
+            var response = client.Delete(id);
             if (response)
             {
                 Console.WriteLine("Customer removed");
@@ -141,7 +141,7 @@ namespace ProjetIMH
             int id = GetInt("Please write the id");
             Console.Clear();
             Console.WriteLine("===Show One===");
-            var c = client2.ReadOne(id);
+            var c = client.ReadOne(id);
             if (c != null)
             {
                 Console.WriteLine($"{c.Id} - {c.FirstName} {c.LastName}");
@@ -158,7 +158,7 @@ namespace ProjetIMH
         {
             Console.Clear();
             Console.WriteLine("===Show All===");
-            var customers = client2.ReadAll();
+            var customers = client.ReadAll();
             if (customers != null)
             {
                 foreach (var c in customers)
