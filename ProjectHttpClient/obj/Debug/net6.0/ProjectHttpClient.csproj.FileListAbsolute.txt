@@ -1,0 +1,12 @@
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\bin\Debug\net6.0\ProjectHttpClient.deps.json
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\bin\Debug\net6.0\ProjectHttpClient.dll
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\bin\Debug\net6.0\ProjectHttpClient.pdb
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.csproj.AssemblyReference.cache
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.AssemblyInfoInputs.cache
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.AssemblyInfo.cs
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.csproj.CoreCompileInputs.cache
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.dll
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\refint\ProjectHttpClient.dll
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ProjectHttpClient.pdb
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjectHttpClient\obj\Debug\net6.0\ref\ProjectHttpClient.dll

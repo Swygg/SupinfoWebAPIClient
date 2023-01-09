@@ -76,3 +76,5 @@ C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\obj\Debug\net6.0\ProjetIMH.
 C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\bin\Debug\net6.0\System.Net.Http.Formatting.dll
 C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\bin\Debug\net6.0\ProjectHttpClient.dll
+C:\Users\Vincent\source\repos\ProjetWebAPI\ProjetIMH\bin\Debug\net6.0\ProjectHttpClient.pdb

@@ -2,22 +2,24 @@
 using ProjetIMH.Interfaces;
 using ProjetWebAPI.Models.DTO;
 using ProjetWebAPI.Models.Inputs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+using ProjectHttpClient;
 
 namespace ProjetIMH
 {
     internal class ConsoleIHM : IConsoleIHM
     {
         private HttpClient client;
+        private HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput> client2;
         public ConsoleIHM()
         {
             client = new HttpClient();
-
+            client2 = new HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput>(
+                "https://localhost:7093/Customers/",
+                "Create",
+                "Update",
+                "Delete?id=",
+                "ReadOne?id=",
+                "ReadAll");
         }
 
         public EChoices ShowMenuInterface()
@@ -31,7 +33,9 @@ namespace ProjetIMH
                     Console.WriteLine($"{(int)choice} - {choice}");
                 }
                 Console.WriteLine("Please select your choice");
+                Console.WriteLine();
                 var userChoiceRaw = Console.ReadKey().KeyChar;
+                Console.WriteLine();
                 try
                 {
                     var userChoice = int.Parse(userChoiceRaw.ToString());
@@ -67,17 +71,12 @@ namespace ProjetIMH
                 FirstName = firstName,
                 LastName = lastName,
             };
-            var response = client.PostAsJsonAsync($"https://localhost:7093/Customers/Create", input)
-               .GetAwaiter()
-               .GetResult();
-            if (response.IsSuccessStatusCode)
-            {
+
+            var success = client2.Create(input);
+            if (success)
                 Console.WriteLine("Customer created");
-            }
             else
-            {
                 Console.WriteLine("Internal server Error");
-            }
             PressAKey();
         }
 
@@ -86,7 +85,7 @@ namespace ProjetIMH
             Console.Clear();
             Console.WriteLine("===Update===");
             var id = GetInt("Please enter the id");
-            var customer = GetCustomerById(id);
+            var customer = client2.ReadOne(id);
             if (customer == null)
             {
                 Console.WriteLine("This customer doesn't existe");
@@ -102,10 +101,8 @@ namespace ProjetIMH
                 FirstName = firstName,
                 LastName = lastName,
             };
-            var response = client.PutAsJsonAsync($"https://localhost:7093/Customers/Update", input)
-               .GetAwaiter()
-               .GetResult();
-            if (response.IsSuccessStatusCode)
+            var response = client2.Update(input);
+            if (response)
             {
                 Console.WriteLine("Customer udpated");
             }
@@ -121,17 +118,15 @@ namespace ProjetIMH
             Console.Clear();
             Console.WriteLine("===Delete by id===");
             var id = GetInt("Please enter the id");
-            var customer = GetCustomerById(id);
+            var customer = client2.ReadOne(id);
             if (customer == null)
             {
                 Console.WriteLine("This customer doesn't existe");
                 PressAKey();
                 return;
             }
-            var response = client.DeleteAsync($"https://localhost:7093/Customers/Delete?id={id}")
-                .GetAwaiter()
-                .GetResult();
-            if (response.IsSuccessStatusCode)
+            var response = client2.Delete(id);
+            if (response)
             {
                 Console.WriteLine("Customer removed");
                 PressAKey();
@@ -148,7 +143,7 @@ namespace ProjetIMH
             int id = GetInt("Please write the id");
             Console.Clear();
             Console.WriteLine("===Show One===");
-            var c = GetCustomerById(id);
+            var c = client2.ReadOne(id);
             if (c != null)
             {
                 Console.WriteLine($"{c.Id} - {c.FirstName} {c.LastName}");
@@ -157,19 +152,17 @@ namespace ProjetIMH
             else
             {
                 Console.WriteLine("Internal server Error");
+                PressAKey();
             }
         }
+
         public void ShowReadAllInterface()
         {
             Console.Clear();
             Console.WriteLine("===Show All===");
-            var response = client.GetAsync("https://localhost:7093/Customers/ReadAll")
-                .GetAwaiter()
-                .GetResult();
-            if (response.IsSuccessStatusCode)
+            var customers = client2.ReadAll();
+            if (customers != null)
             {
-                var tempo = response.Content.ReadAsAsync<List<Customer>>();
-                List<Customer> customers = tempo.GetAwaiter().GetResult();
                 foreach (var c in customers)
                 {
                     Console.WriteLine($"{c.Id} - {c.FirstName} {c.LastName}");
@@ -235,19 +228,6 @@ namespace ProjetIMH
         {
             Console.WriteLine("Please press a key to continue");
             Console.ReadKey(true);
-        }
-
-        private Customer? GetCustomerById(int id)
-        {
-            var response = client.GetAsync($"https://localhost:7093/Customers/ReadOne?id={id}")
-                .GetAwaiter()
-                .GetResult();
-            if (response.IsSuccessStatusCode)
-            {
-                var tempo = response.Content.ReadAsAsync<Customer>();
-                return tempo.GetAwaiter().GetResult();
-            }
-            return null;
         }
     }
 }
