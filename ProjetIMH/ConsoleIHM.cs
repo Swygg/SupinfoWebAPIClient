@@ -1,18 +1,16 @@
-﻿using ProjetIMH.Enums;
+﻿using ProjectHttpClient;
+using ProjetIMH.Enums;
 using ProjetIMH.Interfaces;
 using ProjetWebAPI.Models.DTO;
 using ProjetWebAPI.Models.Inputs;
-using ProjectHttpClient;
 
 namespace ProjetIMH
 {
     internal class ConsoleIHM : IConsoleIHM
     {
-        private HttpClient client;
         private HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput> client2;
         public ConsoleIHM()
         {
-            client = new HttpClient();
             client2 = new HttpClientSpecific<Customer, CustomerCreateInput, CustomerUpdateInput>(
                 "https://localhost:7093/Customers/",
                 "Create",
