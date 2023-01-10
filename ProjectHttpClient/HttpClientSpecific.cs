@@ -70,19 +70,18 @@ namespace ProjectHttpClient
             }
             return default;
         }
-        public List<Dto>? ReadAll()
+        public async Task<List<Dto>>? ReadAll()
         {
             var url = _baseUrl + _readAllPart;
-            var response = _client.GetAsync(url)
-               .GetAwaiter()
-               .GetResult();
+            var response = await _client.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
                 return response
                     .Content
                     .ReadAsAsync<List<Dto>>()
-                    .GetAwaiter().GetResult();
+                    .GetAwaiter()
+                    .GetResult();
             }
             return default;
         }

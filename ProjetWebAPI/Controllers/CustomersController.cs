@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjetWebAPI.Models.DTO;
 using ProjetWebAPI.Models.Inputs;
@@ -73,8 +74,10 @@ namespace ProjetWebAPI.Controllers
             }
         }
 
+
+        [AllowAnonymous]
         [HttpGet("ReadAll")]
-        public IActionResult ReadAll()
+        public ActionResult<List<Customer>> ReadAll()
         {
             try
             {

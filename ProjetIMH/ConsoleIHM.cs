@@ -56,7 +56,6 @@ namespace ProjetIMH
             } while (true);
         }
 
-
         public void ShowCreateInterface()
         {
             Console.Clear();
@@ -153,12 +152,13 @@ namespace ProjetIMH
                 PressAKey();
             }
         }
-
         public void ShowReadAllInterface()
         {
             Console.Clear();
             Console.WriteLine("===Show All===");
-            var customers = client.ReadAll();
+            var customers = client.ReadAll()
+                .GetAwaiter()
+                .GetResult();
             if (customers != null)
             {
                 foreach (var c in customers)
@@ -194,6 +194,13 @@ namespace ProjetIMH
             while (true);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         private int GetInt(string question, int min = 0, int max = 9999999)
         {
             do
